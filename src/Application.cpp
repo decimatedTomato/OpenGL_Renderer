@@ -2,10 +2,12 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
+#include <chrono>
 #include <iostream>
 #include <fstream>
 #include <string>
 #include <sstream>
+#include <cassert>
 
 static void APIENTRY glDebugOutput(GLenum source, GLenum type, unsigned int id, GLenum severity, GLsizei length, const char* message, const void* userParam)
 {
@@ -111,6 +113,9 @@ int main(void)
 
 	/* Create a GLFW debug context */
 	glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, true);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 	/* Create a windowed mode window and its OpenGL context */
 	window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
@@ -143,11 +148,40 @@ int main(void)
 		0.0f, 0.5f,
 		0.5f, -0.5f
 	};*/
-	float square_positions[] = {
-		-0.5f, -0.5f,
-		 0.5f, -0.5f,
-		 0.5f,  0.5f,
-		-0.5f,  0.5f
+
+	enum Attributes {
+		VERTEX_POSITION_ATTRIBUTE = 0,
+		VERTEX_COLOR_ATTRIBUTE,
+		VERTEX_UV_ATTRIBUTE,
+		COUNT_VERTEX_ATTRIBUTES
+	};
+	struct Vertex {
+		float aPosition[3];
+		float aVertexColor[4];
+		float aUV[2];
+	};
+
+	Vertex square_attributes[] = {
+		{
+			{ -1.0f, -1.0f, 0.0f },		// position
+			{ 1.0f, 1.0f, 1.0f, 1.0f },	// color
+			{ 0.0f, 0.0f },				// texture coordinate
+		},
+		{
+			{ 1.0f, -1.0f, 0.0f },		// position
+			{ 1.0f, 1.0f, 1.0f, 1.0f },	// color
+			{ 1.0f, 0.0f },				// texture coordinate
+		},
+		{
+			{ 1.0f, 1.0f, 0.0f },		// position
+			{ 1.0f, 1.0f, 1.0f, 1.0f },	// color
+			{ 1.0f, 1.0f },				// texture coordinate
+		},
+		{
+			{ -1.0f, 1.0f, 0.0f },		// position
+			{ 1.0f, 1.0f, 1.0f, 1.0f },	// color
+			{ 0.0f, 1.0f},				// texture coordinate
+		},
 	};
 	unsigned int square_indices[] = {
 		0, 1, 2,
@@ -165,22 +199,34 @@ int main(void)
 	*/
 
 	// SQUARE
+	unsigned int vertex_array_object;
+	glGenVertexArrays(1, &vertex_array_object);
+	glBindVertexArray(vertex_array_object);
+
 	unsigned int square_buffer;
 	glGenBuffers(1, &square_buffer);
 	glBindBuffer(GL_ARRAY_BUFFER, square_buffer);
-	glBufferData(GL_ARRAY_BUFFER, 4 * 2 * sizeof(float), square_positions, GL_STATIC_DRAW);
-
-	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), 0);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(square_attributes), square_attributes, GL_STATIC_DRAW);
 
 	unsigned int index_buffer_object;
 	glGenBuffers(1, &index_buffer_object);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index_buffer_object);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, 6 * sizeof(unsigned int), square_indices, GL_STATIC_DRAW);
 
+	glEnableVertexAttribArray(VERTEX_POSITION_ATTRIBUTE);
+	glVertexAttribPointer(VERTEX_POSITION_ATTRIBUTE, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const void*)offsetof(Vertex, aPosition));
+
+	glEnableVertexAttribArray(VERTEX_COLOR_ATTRIBUTE);
+	glVertexAttribPointer(VERTEX_COLOR_ATTRIBUTE, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const void*)offsetof(Vertex, aVertexColor));
+
+	glEnableVertexAttribArray(VERTEX_UV_ATTRIBUTE);
+	glVertexAttribPointer(VERTEX_UV_ATTRIBUTE, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const void*)offsetof(Vertex, aUV));
 
 	unsigned int defaultShader = CreateShader("res/shaders/vertex_standard.glsl", "res/shaders/fragment_basic.glsl");
 	glUseProgram(defaultShader);
+
+	int defaultShaderTimeUniformLocation = glGetUniformLocation(defaultShader, "uTime");
+	//assert(defaultShaderTimeUniformLocation != -1);
 
 	/* Loop until the user closes the window */
 	while (!glfwWindowShouldClose(window))
@@ -189,6 +235,9 @@ int main(void)
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		/* Draw the bound buffer */
+
+		/* Update uniforms */
+		glUniform1f(defaultShaderTimeUniformLocation, glfwGetTime());
 
 		/* Without an index buffer TRIANGLE */
 		//glDrawArrays(GL_TRIANGLES, 0, 3);
