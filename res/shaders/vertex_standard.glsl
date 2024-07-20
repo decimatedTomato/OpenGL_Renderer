@@ -8,8 +8,8 @@ layout(location = 2) in vec2 aUV;
 //uniform mat4 uModelViewMatrix;
 //uniform mat4 uProjectionMatrix;
 
-out vec2 vUV;
 out vec4 vVertexColor;
+out vec2 vUV;
 
 void main() {
 	// Apply the camera transform

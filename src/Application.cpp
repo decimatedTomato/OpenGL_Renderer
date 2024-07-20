@@ -1,13 +1,6 @@
 #include "Renderer.hpp"
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-
-#include <chrono>
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <sstream>
-#include <cassert>
+#include "VertexBuffer.hpp"
+#include "IndexBuffer.hpp"
 
 static void APIENTRY glDebugOutput(GLenum source, GLenum type, unsigned int id, GLenum severity, GLsizei length, const char* message, const void* userParam)
 {
@@ -142,13 +135,6 @@ int main(void)
 
 	std::cout << glGetString(GL_VERSION) << std::endl;
 
-	/* Best to initialize the triangles to be drawn outside of the game loop */
-	/*float triangle_positions[] = {
-		-0.5f, -0.5f,
-		0.0f, 0.5f,
-		0.5f, -0.5f
-	};*/
-
 	enum Attributes {
 		VERTEX_POSITION_ATTRIBUTE = 0,
 		VERTEX_COLOR_ATTRIBUTE,
@@ -188,39 +174,22 @@ int main(void)
 		2, 3, 0
 	};
 
-	// TRIANGLE
-   /* unsigned int triangle_buffer;
-	glGenBuffers(1, &triangle_buffer);
-	glBindBuffer(GL_ARRAY_BUFFER, triangle_buffer);
-	glBufferData(GL_ARRAY_BUFFER, 6 * sizeof(float), triangle_positions, GL_STATIC_DRAW);
+	unsigned int vao;
+	glGenVertexArrays(1, &vao);
+	glBindVertexArray(vao);
 
-	glVEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), 0);
-	*/
-
-	// SQUARE
-	unsigned int vertex_array_object;
-	glGenVertexArrays(1, &vertex_array_object);
-	glBindVertexArray(vertex_array_object);
-
-	unsigned int square_buffer;
-	glGenBuffers(1, &square_buffer);
-	glBindBuffer(GL_ARRAY_BUFFER, square_buffer);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(square_attributes), square_attributes, GL_STATIC_DRAW);
-
-	unsigned int index_buffer_object;
-	glGenBuffers(1, &index_buffer_object);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index_buffer_object);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, 6 * sizeof(unsigned int), square_indices, GL_STATIC_DRAW);
+	VertexBuffer vb(square_attributes, sizeof(square_attributes));
 
 	glEnableVertexAttribArray(VERTEX_POSITION_ATTRIBUTE);
 	glVertexAttribPointer(VERTEX_POSITION_ATTRIBUTE, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const void*)offsetof(Vertex, aPosition));
-
 	glEnableVertexAttribArray(VERTEX_COLOR_ATTRIBUTE);
 	glVertexAttribPointer(VERTEX_COLOR_ATTRIBUTE, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const void*)offsetof(Vertex, aVertexColor));
-
 	glEnableVertexAttribArray(VERTEX_UV_ATTRIBUTE);
 	glVertexAttribPointer(VERTEX_UV_ATTRIBUTE, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const void*)offsetof(Vertex, aUV));
+
+	IndexBuffer ib(square_indices, 6);
+	ib.Bind();
+
 
 	unsigned int defaultShader = CreateShader("res/shaders/vertex_standard.glsl", "res/shaders/fragment_basic.glsl");
 	glUseProgram(defaultShader);
@@ -237,7 +206,7 @@ int main(void)
 		/* Draw the bound buffer */
 
 		/* Update uniforms */
-		glUniform1f(defaultShaderTimeUniformLocation, glfwGetTime());
+		glUniform1f(defaultShaderTimeUniformLocation, (float)glfwGetTime());
 
 		/* Without an index buffer TRIANGLE */
 		//glDrawArrays(GL_TRIANGLES, 0, 3);
