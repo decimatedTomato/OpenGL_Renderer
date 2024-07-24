@@ -109,3 +109,8 @@ void RenderingContext::PollEvents() const
 	/* Poll for and process events */
 	glfwPollEvents();
 }
+
+double RenderingContext::GetTime() const
+{
+	return glfwGetTime();
+}

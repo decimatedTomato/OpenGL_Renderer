@@ -144,6 +144,7 @@
     <ClCompile Include="src\IndexBuffer.cpp" />
     <ClCompile Include="src\Renderer.cpp" />
     <ClCompile Include="src\RenderingContext.cpp" />
+    <ClCompile Include="src\Shader.cpp" />
     <ClCompile Include="src\VertexArray.cpp" />
     <ClCompile Include="src\VertexBuffer.cpp" />
     <ClCompile Include="src\VertexBufferLayout.cpp" />
@@ -153,9 +154,11 @@
     <None Include="res\shaders\vertex_standard.glsl" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Application.h" />
     <ClInclude Include="src\IndexBuffer.hpp" />
     <ClInclude Include="src\Renderer.hpp" />
     <ClInclude Include="src\RenderingContext.hpp" />
+    <ClInclude Include="src\Shader.hpp" />
     <ClInclude Include="src\VertexArray.hpp" />
     <ClInclude Include="src\VertexBuffer.hpp" />
     <ClInclude Include="src\VertexBufferLayout.hpp" />

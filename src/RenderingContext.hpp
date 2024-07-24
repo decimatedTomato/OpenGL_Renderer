@@ -14,4 +14,5 @@ public:
 	bool ShouldWindowClose() const;
 	void SwapBuffers() const;
 	void PollEvents() const;
+	double GetTime() const;
 };
