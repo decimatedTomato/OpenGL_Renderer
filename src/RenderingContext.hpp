@@ -4,7 +4,7 @@
 class RenderingContext
 {
 private:
-	int initializationError_;
+	i32 initializationError_;
 	GLFWwindow* window_;
 public:
 	RenderingContext();

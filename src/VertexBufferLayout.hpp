@@ -4,11 +4,11 @@
 
 struct VertexBufferElement
 {
-	unsigned int type;
-	unsigned int count;
+	u32 type;
+	u32 count;
 	unsigned char normalized;
 
-	static unsigned int GetSizeOfType(unsigned int type)
+	static u32 GetSizeOfType(u32 type)
 	{
 		switch (type)
 		{
@@ -25,20 +25,20 @@ class VertexBufferLayout
 {
 private:
 	std::vector<VertexBufferElement> elements_;
-	unsigned int stride_;
+	u32 stride_;
 public:
 	VertexBufferLayout()
 		: stride_(0) {}
 	~VertexBufferLayout();
 
 	template<typename T>
-	void Push(unsigned int count)
+	void Push(u32 count)
 	{
 		static_assert(false);
 	}
 
 	template<>
-	void Push<float>(unsigned int count)
+	void Push<f32>(u32 count)
 	{
 		VertexBufferElement element = { GL_FLOAT, count, GL_FALSE };
 		elements_.push_back(element);
@@ -46,7 +46,7 @@ public:
 
 	}
 	template<>
-	void Push<unsigned int>(unsigned int count)
+	void Push<u32>(u32 count)
 	{
 		VertexBufferElement element = { GL_UNSIGNED_INT, count, GL_TRUE };
 		elements_.push_back(element);
@@ -54,7 +54,7 @@ public:
 
 	}
 	template<>
-	void Push<unsigned char>(unsigned int count)
+	void Push<u8>(u32 count)
 	{
 		VertexBufferElement element = { GL_UNSIGNED_BYTE, count, false };
 		elements_.push_back(element);
@@ -62,5 +62,5 @@ public:
 	}
 
 	inline const std::vector<VertexBufferElement>& GetElements() const { return elements_; }
-	inline unsigned int GetStride() const { return stride_; }
+	inline u32 GetStride() const { return stride_; }
 };

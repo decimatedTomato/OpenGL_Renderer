@@ -1,7 +1,7 @@
 #include "IndexBuffer.hpp"
 #include "Renderer.hpp"
 
-IndexBuffer::IndexBuffer(const unsigned int* data, unsigned int count)
+IndexBuffer::IndexBuffer(const u32* data, u32 count)
 	: count_(count)
 {
 	GLCall(glGenBuffers(1, &rendererID_));

@@ -10,13 +10,13 @@ VertexArray::~VertexArray()
 	GLCall(glDeleteVertexArrays(1, &rendererID_));
 }
 
-void VertexArray::AddBuffer(const VertexBuffer& vb, const VertexBufferLayout& layout)
+void VertexArray::AddBuffer(const VertexBuffer& vb, const VertexBufferLayout& layout) const
 {
 	Bind();
 	vb.Bind();
 	const auto& elements = layout.GetElements();
-	unsigned int offset = 0;
-	for (int i = 0; i < elements.size(); i++)
+	u32 offset = 0;
+	for (u32 i = 0; i < elements.size(); i++)
 	{
 		const auto& element = elements[i];
 		GLCall(glEnableVertexAttribArray(i));

@@ -1,11 +1,12 @@
 #pragma once
+#include "defines.hpp"
 
 class VertexBuffer
 {
 private:
-	unsigned int rendererID_;
+	u32 rendererID_;
 public:
-	VertexBuffer(const void* data, unsigned int size);
+	VertexBuffer(const void* data, u32 size);
 	~VertexBuffer();
 
 	void Bind() const;

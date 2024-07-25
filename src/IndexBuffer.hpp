@@ -1,12 +1,13 @@
 #pragma once
+#include "defines.hpp"
 
 class IndexBuffer
 {
 private:
-	unsigned int rendererID_;
-	unsigned int count_;
+	u32 rendererID_;
+	u32 count_;
 public:
-	IndexBuffer(const unsigned int* data, unsigned int count);
+	IndexBuffer(const u32* data, u32 count);
 	~IndexBuffer();
 
 	void Bind() const;
@@ -14,5 +15,5 @@ public:
 
 	// void LoadData(const void *data)
 
-	inline unsigned int GetCount() const { return count_; }
+	inline u32 GetCount() const { return count_; }
 };

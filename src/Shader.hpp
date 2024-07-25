@@ -2,6 +2,8 @@
 #include <string>
 #include <unordered_map>
 
+#include "defines.hpp"
+
 struct ShaderProgramSource
 {
 	const char* VertexShaderSource;
@@ -11,11 +13,11 @@ struct ShaderProgramSource
 class Shader
 {
 private:
-	unsigned int rendererID_;
+	u32 rendererID_;
 	ShaderProgramSource source_;
 	std::string vertexShaderFilepath_;
 	std::string fragmentShaderFilepath_;
-	std::unordered_map<std::string, int> uniformCache_;
+	std::unordered_map<std::string, i32> uniformCache_;
 
 public:
 	Shader(const std::string& vertexFilepath, const std::string& fragmentFilepath);
@@ -24,9 +26,9 @@ public:
 	void Bind() const;
 	void Unbind() const;
 
-	void SetUniform1f(const std::string& name, float v);
+	void SetUniform1f(const std::string& name, f32 v);
 private:
-	unsigned int CompileShader(unsigned int type, const char* shaderSource) const;
+	u32 CompileShader(u32 type, const char* shaderSource) const;
 	void CompileShaderProgram() const;
-	int GetUniformLocation(const std::string& name);
+	i32 GetUniformLocation(const std::string& name);
 };

@@ -7,12 +7,12 @@
 #include "Application.h"
 
 struct Vertex {
-	float aPosition[3];
-	float aVertexColor[4];
-	float aUV[2];
+	f32 aPosition[3];
+	f32 aVertexColor[4];
+	f32 aUV[2];
 };
 
-int main(void)
+i32 main(void)
 {
 	RenderingContext context;
 	if (context.InitializationFailed())
@@ -48,12 +48,12 @@ int main(void)
 	VertexArray va;
 	VertexBuffer vb(square_attributes, sizeof(square_attributes));
 	VertexBufferLayout layout;
-	layout.Push<float>(3);
-	layout.Push<float>(4);
-	layout.Push<float>(2);
+	layout.Push<f32>(3);
+	layout.Push<f32>(4);
+	layout.Push<f32>(2);
 	va.AddBuffer(vb, layout);
 
-	const unsigned int square_indices[] = {
+	const u32 square_indices[] = {
 		0, 1, 2,
 		2, 3, 0
 	};
@@ -71,7 +71,7 @@ int main(void)
 
 		/* Update uniforms */
 		defaultShader.Bind();
-		defaultShader.SetUniform1f("uTime", (float)context.GetTime());
+		defaultShader.SetUniform1f("uTime", (f32)context.GetTime());
 
 		/* Draw the bound buffer */
 		va.Bind();
