@@ -42,7 +42,7 @@ static void APIENTRY glDebugOutput(GLenum source, GLenum type, u32 id, GLenum se
 	std::cout << std::endl;
 }
 
-RenderingContext::RenderingContext()
+RenderingContext::RenderingContext(int width, int height)
 {
 	initializationError_ = 0;
 	window_ = nullptr;
@@ -56,7 +56,7 @@ RenderingContext::RenderingContext()
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 		/* Create a windowed mode window and its OpenGL context */
-		window_ = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
+		window_ = glfwCreateWindow(width, height, "Hello World", NULL, NULL);
 		if (!window_)
 		{
 			glfwTerminate();
@@ -113,4 +113,11 @@ void RenderingContext::PollEvents() const
 double RenderingContext::GetTime() const
 {
 	return glfwGetTime();
+}
+
+Vec2i RenderingContext::GetWindowResolution() const
+{
+	int w, h;
+	glfwGetWindowSize(window_, &w, &h);
+	return { w, h };
 }

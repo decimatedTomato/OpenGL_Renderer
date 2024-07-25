@@ -8,7 +8,7 @@ struct VertexBufferElement
 	u32 count;
 	unsigned char normalized;
 
-	static u32 GetSizeOfType(u32 type)
+	static size GetSizeOfType(u32 type)
 	{
 		switch (type)
 		{
@@ -25,7 +25,7 @@ class VertexBufferLayout
 {
 private:
 	std::vector<VertexBufferElement> elements_;
-	u32 stride_;
+	size stride_;
 public:
 	VertexBufferLayout()
 		: stride_(0) {}
@@ -62,5 +62,5 @@ public:
 	}
 
 	inline const std::vector<VertexBufferElement>& GetElements() const { return elements_; }
-	inline u32 GetStride() const { return stride_; }
+	inline size GetStride() const { return stride_; }
 };

@@ -43,6 +43,7 @@
   <ItemGroup>
     <None Include="res\shaders\fragment_basic.glsl" />
     <None Include="res\shaders\vertex_standard.glsl" />
+    <None Include="res\shaders\fragment_voronoi.glsl" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Renderer.hpp">
@@ -64,9 +65,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Shader.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Application.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -3,7 +3,6 @@
 #include "Shader.hpp"
 #include "Renderer.hpp"
 
-
 Shader::Shader(const std::string& vertexShaderFilepath, const std::string& fragmentShaderFilepath)
 	:rendererID_(0)
 	, vertexShaderFilepath_(vertexShaderFilepath)
@@ -21,7 +20,6 @@ Shader::Shader(const std::string& vertexShaderFilepath, const std::string& fragm
 
 Shader::~Shader()
 {
-	//glDeleteShader()
 	GLCall(glDeleteProgram(rendererID_));
 }
 
@@ -92,4 +90,24 @@ i32 Shader::GetUniformLocation(const std::string& name)
 void Shader::SetUniform1f(const std::string& name, f32 v)
 {
 	GLCall(glUniform1f(GetUniformLocation(name), v));
+}
+
+void Shader::SetUniform2fv(const std::string& name, u32 count, Vec2f* v)
+{
+	GLCall(glUniform2fv(GetUniformLocation(name), count, (const GLfloat*)v));
+}
+
+void Shader::SetUniform3fv(const std::string& name, u32 count, Vec3f* v)
+{
+	GLCall(glUniform3fv(GetUniformLocation(name), count, (const GLfloat*)v));
+}
+
+void Shader::SetUniform2i(const std::string& name, Vec2i v)
+{
+	GLCall(glUniform2i(GetUniformLocation(name), v.x, v.y));
+}
+
+void Shader::SetUniform1i(const std::string& name, i32 v)
+{
+	GLCall(glUniform1i(GetUniformLocation(name), v));
 }

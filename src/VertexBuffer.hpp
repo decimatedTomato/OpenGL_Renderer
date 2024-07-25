@@ -6,7 +6,7 @@ class VertexBuffer
 private:
 	u32 rendererID_;
 public:
-	VertexBuffer(const void* data, u32 size);
+	VertexBuffer(const void* data, size size);
 	~VertexBuffer();
 
 	void Bind() const;

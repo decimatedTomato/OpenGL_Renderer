@@ -22,3 +22,16 @@ using f64 = double;
 
 using size = std::uint32_t;
 using std::ptrdiff_t;
+
+struct Vec2f
+{
+	f32 x, y;
+};
+struct Vec3f
+{
+	f32 x, y, z;
+};
+struct Vec2i
+{
+	i32 x, y;
+};

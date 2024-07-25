@@ -4,7 +4,6 @@
 #include "IndexBuffer.hpp"
 #include "VertexArray.hpp"
 #include "Shader.hpp"
-#include "Application.h"
 
 struct Vertex {
 	f32 aPosition[3];
@@ -14,7 +13,7 @@ struct Vertex {
 
 i32 main(void)
 {
-	RenderingContext context;
+	RenderingContext context(720, 480);
 	if (context.InitializationFailed())
 	{
 		return -1;
@@ -60,7 +59,22 @@ i32 main(void)
 
 	IndexBuffer ib(square_indices, 6);
 
-	Shader defaultShader("res/shaders/vertex_standard.glsl", "res/shaders/fragment_basic.glsl");
+	//Shader defaultShader("res/shaders/vertex_standard.glsl", "res/shaders/fragment_basic.glsl");
+	srand((u32)time(NULL));
+	Shader voronoiShader("res/shaders/vertex_standard.glsl", "res/shaders/fragment_voronoi.glsl");
+	voronoiShader.Bind();
+	voronoiShader.SetUniform1i("uPointCount", 32);
+	voronoiShader.SetUniform2i("uResolution", context.GetWindowResolution());
+	f32 pointPositions[64] = { 0 };
+	for (i32 i = 0; i < 64; i++) pointPositions[i] = static_cast <f32> (rand()) / static_cast <f32> (RAND_MAX);
+	voronoiShader.SetUniform2fv("uPointPositions", 32, (Vec2f*)pointPositions);
+	f32 pointColors[96] = { 0 };
+	for (i32 i = 0; i < 96; i++) pointColors[i] = static_cast <f32> (rand()) / static_cast <f32> (RAND_MAX);
+	voronoiShader.SetUniform3fv("uPointColors", 32, (Vec3f*)pointPositions);
+	f32 pointVelocities[64] = { 0 };
+	for (i32 i = 0; i < 64; i++) pointVelocities[i] = static_cast <f32> (rand()) / static_cast <f32> (RAND_MAX) - 0.5f;
+	voronoiShader.SetUniform2fv("uPointVelocities", 32, (Vec2f*)pointVelocities);
+	voronoiShader.Unbind();
 
 	/* Loop until the user closes the window */
 	while (!context.ShouldWindowClose())
@@ -70,8 +84,10 @@ i32 main(void)
 
 
 		/* Update uniforms */
-		defaultShader.Bind();
-		defaultShader.SetUniform1f("uTime", (f32)context.GetTime());
+		//defaultShader.Bind();
+		//defaultShader.SetUniform1f("uTime", (float)context.GetTime());
+		voronoiShader.Bind();
+		voronoiShader.SetUniform1f("uTime", (float)context.GetTime());
 
 		/* Draw the bound buffer */
 		va.Bind();
@@ -79,7 +95,8 @@ i32 main(void)
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr); // Since the index buffer is already bound to the element array buffer it does not need to be passed as an argument here
 		ib.Unbind();
 		va.Unbind();
-		defaultShader.Unbind();
+		//defaultShader.Unbind();
+		voronoiShader.Unbind();
 
 		context.SwapBuffers();
 		context.PollEvents();
