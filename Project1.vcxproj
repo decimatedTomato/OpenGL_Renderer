@@ -77,13 +77,15 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>GLEW_STATIC;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\glew-2.1.0\include;$(SolutionDir)Dependencies\GLFW\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\glew-2.1.0\include;$(SolutionDir)Dependencies\stb_image;$(SolutionDir)Dependencies\GLFW\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\GLFW\lib-vc2022;$(SolutionDir)Dependencies\glew-2.1.0\lib\Release\Win32</AdditionalLibraryDirectories>
       <AdditionalDependencies>glew32s.lib;glfw3.lib;opengl32.lib;User32.lib;Gdi32.lib;Shell32.lib</AdditionalDependencies>
+      <EntryPointSymbol>
+      </EntryPointSymbol>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -94,7 +96,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>GLEW_STATIC;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\glew-2.1.0\include;$(SolutionDir)Dependencies\GLFW\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\glew-2.1.0\include;$(SolutionDir)Dependencies\stb_image;$(SolutionDir)Dependencies\GLFW\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -103,6 +105,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\GLFW\lib-vc2022;$(SolutionDir)Dependencies\glew-2.1.0\lib\Release\Win32</AdditionalLibraryDirectories>
       <AdditionalDependencies>glew32s.lib;glfw3.lib;opengl32.lib;User32.lib;Gdi32.lib;Shell32.lib</AdditionalDependencies>
+      <EntryPointSymbol>
+      </EntryPointSymbol>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -140,30 +144,38 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\Application.cpp" />
-    <ClCompile Include="src\IndexBuffer.cpp" />
-    <ClCompile Include="src\Renderer.cpp" />
-    <ClCompile Include="src\RenderingContext.cpp" />
-    <ClCompile Include="src\Shader.cpp" />
-    <ClCompile Include="src\VertexArray.cpp" />
-    <ClCompile Include="src\VertexBuffer.cpp" />
-    <ClCompile Include="src\VertexBufferLayout.cpp" />
+    <ClCompile Include="src\ApplicationIslandGeneration.cpp" />
+    <ClCompile Include="src\Engine\IndexBuffer.cpp" />
+    <ClCompile Include="src\Engine\Renderer.cpp" />
+    <ClCompile Include="src\Engine\RenderingContext.cpp" />
+    <ClCompile Include="src\Engine\Shader.cpp" />
+    <ClCompile Include="src\Engine\Texture.cpp" />
+    <ClCompile Include="src\Engine\VertexArray.cpp" />
+    <ClCompile Include="src\Engine\VertexBuffer.cpp" />
+    <ClCompile Include="src\Engine\VertexBufferLayout.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="res\shaders\fragment_basic.glsl" />
+    <None Include="README.md" />
+    <None Include="res\shaders\fragment_island.glsl" />
+    <None Include="res\shaders\fragment_rainbow.glsl" />
+    <None Include="res\shaders\fragment_standard.glsl" />
     <None Include="res\shaders\fragment_voronoi.glsl" />
     <None Include="res\shaders\vertex_standard.glsl" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application.h" />
-    <ClInclude Include="src\defines.hpp" />
-    <ClInclude Include="src\IndexBuffer.hpp" />
-    <ClInclude Include="src\Renderer.hpp" />
-    <ClInclude Include="src\RenderingContext.hpp" />
-    <ClInclude Include="src\Shader.hpp" />
-    <ClInclude Include="src\VertexArray.hpp" />
-    <ClInclude Include="src\VertexBuffer.hpp" />
-    <ClInclude Include="src\VertexBufferLayout.hpp" />
+    <ClInclude Include="src\Engine\defines.hpp" />
+    <ClInclude Include="src\Engine\IndexBuffer.hpp" />
+    <ClInclude Include="src\Engine\Renderer.hpp" />
+    <ClInclude Include="src\Engine\RenderingContext.hpp" />
+    <ClInclude Include="src\Engine\Shader.hpp" />
+    <ClInclude Include="src\Engine\Texture.hpp" />
+    <ClInclude Include="src\Engine\VertexArray.hpp" />
+    <ClInclude Include="src\Engine\VertexBuffer.hpp" />
+    <ClInclude Include="src\Engine\VertexBufferLayout.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\textures\Perlin_10_128x128.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

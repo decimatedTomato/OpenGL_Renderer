@@ -5,6 +5,7 @@ Will possibly serve as bedrock for physics engine in the future.
 ## TODO
 - Add fullscreen/pause/resume
 - Create scenes and UI to switch between them
+- Recreate without the help of visual studio (it is bothering me)
 
 ## Sources
 - Making heavy use of TheCherno's OpenGL series:

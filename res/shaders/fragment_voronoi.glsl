@@ -36,7 +36,7 @@ void main()
             minDistance = d;
         }
     }
-    vec3 color = uPointColors[closestPosition];
-    if (minDistance < MARKER_RADIUS) color = 1 - color;
-    gl_FragColor = vec4(color, 1.0);
+    vec3 col = uPointColors[closestPosition];
+    if (minDistance < MARKER_RADIUS) col = 1 - col;
+    gl_FragColor = vec4(col, 1.0);
 }
