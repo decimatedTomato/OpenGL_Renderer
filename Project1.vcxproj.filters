@@ -36,10 +36,10 @@
     <ClCompile Include="src\Engine\Shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\ApplicationIslandGeneration.cpp">
+    <ClCompile Include="src\Engine\Texture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Texture.cpp">
+    <ClCompile Include="src\ApplicationVoronoi.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -82,9 +82,15 @@
     <ClInclude Include="src\Engine\Texture.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\ApplicationVoronoi.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\textures\Perlin_10_128x128.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\textures\Perlin_23_512x512.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

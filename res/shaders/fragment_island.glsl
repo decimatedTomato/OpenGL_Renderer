@@ -1,13 +1,13 @@
 #version 330 core
 precision highp float;
 
-in vec4 vVertexColor;
-in vec2 vUV;
+in vec4 v_col;
+in vec2 v_uv;
+
+uniform float u_time;
+uniform sampler2D u_texture;
 
 #define OCTAVE 2.0
-
-uniform float uTime;
-uniform sampler2D uTexture;
 
 //float noise(int lod) {
 //	float val = 0.0;
@@ -20,6 +20,6 @@ uniform sampler2D uTexture;
 //}
 
 void main() {
-	vec4 sample = texture2D(uTexture, (vUV+vec2(cos(uTime), sin(uTime))) / OCTAVE) / OCTAVE + texture2D(uTexture, vUV+vec2(sin(uTime), exp(cos(uTime))));
-	gl_FragColor = sample * vVertexColor;
+	vec4 sample = texture2D(u_texture, (v_uv+vec2(cos(u_time), sin(u_time))) / OCTAVE) / OCTAVE + texture2D(u_texture, v_uv+vec2(sin(u_time), exp(cos(u_time))));
+	gl_FragColor = sample * v_col;
 }

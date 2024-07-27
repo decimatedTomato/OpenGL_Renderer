@@ -6,9 +6,9 @@
 #include "Engine/Shader.hpp"
 
 struct Vertex {
-	f32 aPosition[3];
-	f32 aVertexColor[4];
-	f32 aUV[2];
+	f32 a_pos[3];
+	f32 a_col[4];
+	f32 a_uv[2];
 };
 
 i32 main(void)
@@ -71,7 +71,7 @@ i32 main(void)
 
 
 		/* Update uniforms */
-		rainbowShader.SetUniform1f("uTime", (float)context.GetTime());
+		rainbowShader.SetUniform1f("u_time", (float)context.GetTime());
 
 		/* Draw the bound buffer */
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);

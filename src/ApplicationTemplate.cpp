@@ -6,9 +6,9 @@
 #include "Engine/Shader.hpp"
 
 struct Vertex {
-	f32 aPosition[3];
-	f32 aVertexColor[4];
-	f32 aUV[2];
+	f32 a_pos[3];
+	f32 a_col[4];
+	f32 a_uv[2];
 };
 
 i32 main(void)

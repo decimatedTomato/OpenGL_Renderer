@@ -144,7 +144,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\ApplicationIslandGeneration.cpp" />
+    <ClCompile Include="src\ApplicationVoronoi.cpp" />
     <ClCompile Include="src\Engine\IndexBuffer.cpp" />
     <ClCompile Include="src\Engine\Renderer.cpp" />
     <ClCompile Include="src\Engine\RenderingContext.cpp" />
@@ -164,6 +164,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application.h" />
+    <ClInclude Include="src\ApplicationVoronoi.h" />
     <ClInclude Include="src\Engine\defines.hpp" />
     <ClInclude Include="src\Engine\IndexBuffer.hpp" />
     <ClInclude Include="src\Engine\Renderer.hpp" />
@@ -176,6 +177,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\textures\Perlin_10_128x128.png" />
+    <Image Include="res\textures\Perlin_23_512x512.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
