@@ -6,15 +6,27 @@
 #include "Engine/Shader.hpp"
 #include "Engine/Texture.hpp"
 
+#define COLOR_COUNT_MAX 10
+
 struct Vertex {
 	f32 a_pos[3];
 	f32 a_col[4];
 	f32 a_uv[2];
 };
 
+static constexpr Vec3f ColorFromHex(i32 hex)
+{
+	return {
+		((hex & 0xFF0000) >> 16) / 255.f,
+		((hex & 0x00FF00) >> 8) / 255.f,
+		((hex & 0x0000FF) >> 0) / 255.f,
+	};
+}
+
 i32 main(void)
 {
-	RenderingContext context(720, 480);
+	RenderingContext context(1600, 900);
+	//RenderingContext context(720, 480);
 	if (context.InitializationFailed())
 	{
 		return -1;
@@ -63,10 +75,27 @@ i32 main(void)
 
 	Shader islandShader("res/shaders/vertex_standard.glsl", "res/shaders/fragment_island.glsl");
 	islandShader.Bind();
-	islandShader.SetUniform1i("u_tex_coord", 0);
-
-	Texture noiseTexture("res/textures/Perlin_23_512x512.png");
-	noiseTexture.Bind(0);
+	islandShader.SetUniform2i("u_resolution", context.GetWindowResolution());
+	islandShader.SetUniform1f("u_zoom_out", 10);
+	const int terrain_color_count = 6;
+	ASSERT(terrain_color_count <= COLOR_COUNT_MAX);
+	islandShader.SetUniform1i("u_terrain_color_count", terrain_color_count);
+	/*Vec3f terrain_colors[terrain_color_count] = {
+		ColorFromHex(0x0505FF),
+		ColorFromHex(0x0720AF),
+		ColorFromHex(0xFF00FF),
+		ColorFromHex(0x00FFFF),
+		ColorFromHex(0xFF0000),
+	};*/
+	Vec3f terrain_colors[terrain_color_count] = {
+		ColorFromHex(0x0720AF),			// Deep ocean
+		ColorFromHex(0x0505FF),			// Shallow ocean
+		ColorFromHex(0xDBDA81),			// Beach
+		ColorFromHex(0x209030),			// Forest
+		ColorFromHex(0x3F3F3F),			// Mountain
+		ColorFromHex(0xDFDFFF),			// Snowy peak
+	};
+	islandShader.SetUniform3fv("u_terrain_colors", terrain_color_count, terrain_colors);
 
 	/* Loop until the user closes the window */
 	while (!context.ShouldWindowClose())

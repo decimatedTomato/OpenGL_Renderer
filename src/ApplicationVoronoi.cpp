@@ -4,7 +4,6 @@
 #include "Engine/IndexBuffer.hpp"
 #include "Engine/VertexArray.hpp"
 #include "Engine/Shader.hpp"
-#include "ApplicationVoronoi.h"
 
 struct Vertex {
 	f32 a_pos[3];

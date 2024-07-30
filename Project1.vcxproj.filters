@@ -39,7 +39,7 @@
     <ClCompile Include="src\Engine\Texture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\ApplicationVoronoi.cpp">
+    <ClCompile Include="src\ApplicationIslandGeneration.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -80,9 +80,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Texture.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\ApplicationVoronoi.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
