@@ -1,6 +1,7 @@
 #include "Texture.hpp"
 
 #define STB_IMAGE_IMPLEMENTATION
+#define STBI_FAILURE_USERMSG
 #include "stb_image.h"
 
 Texture::Texture(const std::string& textureFilepath)
@@ -13,7 +14,7 @@ Texture::Texture(const std::string& textureFilepath)
 	stbi_set_flip_vertically_on_load(1);
 	u8* localBuffer_ = stbi_load(textureFilepath.c_str(), &width_, &height_, &channels_, STBI_rgb_alpha);
 	if (localBuffer_ == nullptr) {
-		std::cout << "Error: Cannot load texture '" << textureFilepath << "'." << std::endl;
+		std::cout << "Error: Cannot load texture '" << textureFilepath << "'. " << stbi_failure_reason() << std::endl;
 		ASSERT(false);
 	}
 

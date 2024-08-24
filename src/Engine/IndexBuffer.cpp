@@ -1,5 +1,4 @@
 #include "IndexBuffer.hpp"
-#include "Renderer.hpp"
 
 IndexBuffer::IndexBuffer(const u32* data, u32 count)
 	: count_(count)

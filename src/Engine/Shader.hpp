@@ -2,7 +2,7 @@
 #include <string>
 #include <unordered_map>
 
-#include "defines.hpp"
+#include "Defines.hpp"
 
 struct ShaderProgramSource
 {
@@ -27,6 +27,7 @@ public:
 	void Unbind() const;
 
 	void SetUniform1f(const std::string& name, f32 v);
+	void SetUniform2f(const std::string& name, Vec2f v);
 	void SetUniform2fv(const std::string& name, u32 count, Vec2f* v);
 	void SetUniform3fv(const std::string& name, u32 count, Vec3f* v);
 	void SetUniform1i(const std::string& name, i32 v);

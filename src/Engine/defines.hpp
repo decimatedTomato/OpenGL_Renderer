@@ -1,5 +1,10 @@
 #pragma once
 
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
+
+#include <iostream>
+#include <cassert>
 #include <cstdint>
 #include <cfloat>
 #include <cstddef>
@@ -35,3 +40,11 @@ struct Vec2i
 {
 	i32 x, y;
 };
+
+void GLClearError();
+bool GLLogCall(const char* function, const char* file, i32 line);
+
+#define ASSERT(X) if (!(X)) __debugbreak();
+#define GLCall(X) GLClearError();	\
+	X;								\
+	ASSERT(GLLogCall(#X, __FILE__, __LINE__))

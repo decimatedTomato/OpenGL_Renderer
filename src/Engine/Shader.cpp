@@ -1,7 +1,6 @@
 #include <fstream>
 
 #include "Shader.hpp"
-#include "Renderer.hpp"
 
 Shader::Shader(const std::string& vertexShaderFilepath, const std::string& fragmentShaderFilepath)
 	:rendererID_(0)
@@ -90,6 +89,11 @@ i32 Shader::GetUniformLocation(const std::string& name)
 void Shader::SetUniform1f(const std::string& name, f32 v)
 {
 	GLCall(glUniform1f(GetUniformLocation(name), v));
+}
+
+void Shader::SetUniform2f(const std::string& name, Vec2f v)
+{
+	GLCall(glUniform2f(GetUniformLocation(name), v.x, v.y));
 }
 
 void Shader::SetUniform2fv(const std::string& name, u32 count, Vec2f* v)

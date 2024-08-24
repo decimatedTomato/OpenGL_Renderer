@@ -10,7 +10,10 @@ struct Vertex {
 	f32 a_col[4];
 	f32 a_uv[2];
 };
-
+static float RandomFloat()
+{
+	return static_cast <f32> (rand()) / static_cast <f32> (RAND_MAX);
+}
 i32 main(void)
 {
 	RenderingContext context(720, 480);
@@ -20,6 +23,7 @@ i32 main(void)
 	}
 	std::cout << glGetString(GL_VERSION) << std::endl;
 
+	Renderer renderer;
 
 	const Vertex square_attributes[] = {
 		{
@@ -69,8 +73,7 @@ i32 main(void)
 	voronoiShader.SetUniform2fv("u_p_pos", 32, (Vec2f*)pointPositions);
 	f32 pointColors[96] = { 0 };
 	for (i32 i = 0; i < 96; i++) pointColors[i] = RandomFloat() + 0.1;
-	for (int i = 0; i < 96; i++) std::cout << pointColors[i] << ", ";
-	voronoiShader.SetUniform3fv("u_p_col", 32, (Vec3f*)pointPositions);
+	voronoiShader.SetUniform3fv("u_p_col", 32, (Vec3f*)pointColors);
 	f32 pointVelocities[64] = { 0 };
 	for (i32 i = 0; i < 64; i++) pointVelocities[i] = RandomFloat() - 0.5f;
 	voronoiShader.SetUniform2fv("u_p_vel", 32, (Vec2f*)pointVelocities);
@@ -79,21 +82,14 @@ i32 main(void)
 	/* Loop until the user closes the window */
 	while (!context.ShouldWindowClose())
 	{
-		/* Render here */
-		glClear(GL_COLOR_BUFFER_BIT);
-
+		renderer.Clear();
 
 		/* Update uniforms */
 		voronoiShader.Bind();
 		voronoiShader.SetUniform1f("u_time", (float)context.GetTime());
 
 		/* Draw the bound buffer */
-		va.Bind();
-		ib.Bind();
-		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
-		ib.Unbind();
-		va.Unbind();
-		voronoiShader.Unbind();
+		renderer.Draw(va, ib, voronoiShader);
 
 		context.SwapBuffers();
 		context.PollEvents();
@@ -102,7 +98,4 @@ i32 main(void)
 	return 0;
 }
 
-static float RandomFloat()
-{
-	return static_cast <f32> (rand()) / static_cast <f32> (RAND_MAX);
-}
+

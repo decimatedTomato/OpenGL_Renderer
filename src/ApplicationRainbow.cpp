@@ -20,6 +20,7 @@ i32 main(void)
 	}
 	std::cout << glGetString(GL_VERSION) << std::endl;
 
+	Renderer renderer;
 
 	const Vertex square_attributes[] = {
 		{
@@ -66,15 +67,13 @@ i32 main(void)
 	/* Loop until the user closes the window */
 	while (!context.ShouldWindowClose())
 	{
-		/* Render here */
-		glClear(GL_COLOR_BUFFER_BIT);
-
+		renderer.Clear();
 
 		/* Update uniforms */
 		rainbowShader.SetUniform1f("u_time", (float)context.GetTime());
 
 		/* Draw the bound buffer */
-		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
+		renderer.Draw(va, ib, rainbowShader);
 
 		context.SwapBuffers();
 		context.PollEvents();

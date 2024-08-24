@@ -5,7 +5,7 @@ in vec4 v_col;
 in vec2 v_uv;
 
 #define COLOR_COUNT_MAX 10
-#define TIME_VARYING 0
+#define TIME_VARYING 1
 
 uniform float u_time;
 uniform ivec2 u_resolution;
@@ -15,7 +15,8 @@ uniform int u_terrain_color_count;
 
 /* Expects height in range 0..1 */
 vec3 terrainify(float height) {
-    return u_terrain_colors[int(height * u_terrain_color_count)];
+    height = clamp(height * 0.875 + 0.5, 0.0, 1.0);
+    return u_terrain_colors[int(height * u_terrain_color_count - 0.01)];
 }
 
 float smootherstep(float x) {
@@ -38,9 +39,7 @@ vec2 random_vector(vec2 pos) {
     return vec2(cos(theta), sin(theta));
 }
 
-void main() {
-    vec2 uv = v_uv * u_resolution / u_resolution.y;
-
+float perlin_noise(vec2 uv) {
     // Repeating UV in a grid and getting cellID
     uv *= u_zoom_out;
     vec2 gridID = floor(uv);
@@ -70,19 +69,31 @@ void main() {
     float dottl = dot(dtl, c2tl);
     float dottr = dot(dtr, c2tr);
     
-    if ((int(u_time) / 5) % 2 == 0) {
+//    if ((int(u_time) / 5) % 2 == 0) {
         gridUV = vec2(smoothstep(vec2(0), vec2(1), gridUV));
-    } else {
-        gridUV = vec2(smootherstep(gridUV.x), smootherstep(gridUV.y));
-    }
+//    } else {
+//        gridUV = vec2(smootherstep(gridUV.x), smootherstep(gridUV.y));
+//    }
     
     // Perform linear interpolation between dot products
     float b = mix(dotbl, dotbr, gridUV.x);
     float t = mix(dottl, dottr, gridUV.x);
-    float perlin = mix(b, t, gridUV.y);
+    return mix(b, t, gridUV.y);
+}
 
-    perlin = perlin * 0.875 + 0.5;
-	gl_FragColor = vec4(terrainify(perlin),1.0);
-//    if (perlin > 1.0) gl_FragColor = vec4(1, 0, 0, 0);
-//    if (perlin < 0.0) gl_FragColor = vec4(0, 0, 1, 0);
+float fbm_perlin(int octaves, float falloff, vec2 uv) {
+    float noise = 0.0;
+    float amplitude = 1.0;
+    for (int i = 0; i < octaves; i++) {
+        noise += perlin_noise(uv) * amplitude;
+        amplitude *= falloff;
+        uv *= 2.0;
+    }
+    return noise;
+}
+
+void main() {
+    vec2 uv = v_uv * u_resolution / u_resolution.y;
+    int octaves = int(u_time) / 5 + 1;
+	gl_FragColor = vec4(terrainify(fbm_perlin(octaves, 0.5, uv)), 1.0);
 }

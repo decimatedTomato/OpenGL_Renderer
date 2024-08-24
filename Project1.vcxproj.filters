@@ -39,7 +39,10 @@
     <ClCompile Include="src\Engine\Texture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\ApplicationIslandGeneration.cpp">
+    <ClCompile Include="src\Engine\Defines.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ApplicationDistortion.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -50,6 +53,7 @@
     <None Include="README.md" />
     <None Include="res\shaders\fragment_standard.glsl" />
     <None Include="res\shaders\fragment_island.glsl" />
+    <None Include="res\shaders\fragment_distortion.glsl" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Engine\Renderer.hpp">
@@ -76,7 +80,7 @@
     <ClInclude Include="src\Application.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\defines.hpp">
+    <ClInclude Include="src\Engine\Defines.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Texture.hpp">
@@ -88,6 +92,9 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="res\textures\Perlin_23_512x512.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\textures\African-savanna-elephant.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
