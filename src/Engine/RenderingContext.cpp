@@ -138,6 +138,10 @@ RenderingContext::RenderingContext(i32 width, i32 height)
 	glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
 	glDebugMessageCallback(glDebugOutput, nullptr);
 	glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, 0, nullptr, GL_TRUE);
+
+	/* Not sure where else to put miscellaneous stuff */
+	GLCall(glEnable(GL_BLEND));
+	GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
 }
 
 RenderingContext::~RenderingContext()
@@ -171,6 +175,11 @@ void RenderingContext::PollEvents() const
 double RenderingContext::GetTime() const
 {
 	return glfwGetTime();
+}
+
+GLFWwindow* RenderingContext::GetWindow() const
+{
+	return window_;
 }
 
 Vec2i RenderingContext::GetWindowResolution() const

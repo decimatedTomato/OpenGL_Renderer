@@ -74,7 +74,7 @@ i32 main(void)
 	IndexBuffer ib(square_indices, 6);
 	ib.Bind();
 
-	Shader islandShader("res/shaders/vertex_standard.glsl", "res/shaders/fragment_island.glsl");
+	Shader islandShader("res/shaders/vertex_basic.glsl", "res/shaders/fragment_island.glsl");
 	islandShader.Bind();
 	islandShader.SetUniform2i("u_resolution", context.GetWindowResolution());
 	islandShader.SetUniform1f("u_zoom_out", 10);

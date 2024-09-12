@@ -26,12 +26,14 @@ public:
 	void Bind() const;
 	void Unbind() const;
 
-	void SetUniform1f(const std::string& name, f32 v);
-	void SetUniform2f(const std::string& name, Vec2f v);
-	void SetUniform2fv(const std::string& name, u32 count, Vec2f* v);
-	void SetUniform3fv(const std::string& name, u32 count, Vec3f* v);
-	void SetUniform1i(const std::string& name, i32 v);
-	void SetUniform2i(const std::string& name, Vec2i v);
+	void SetUniform1f(const std::string& name, const f32 v);
+	void SetUniform2f(const std::string& name, const Vec2f v);
+	void SetUniform2fv(const std::string& name, u32 count, const f32* v);
+	void SetUniform3fv(const std::string& name, u32 count, const f32* v);
+	void SetUniform1i(const std::string& name, const i32 v);
+	void SetUniform2i(const std::string& name, const Vec2i v);
+	void SetUniformMat4x4f(const std::string& name, const f32* v);
+	void SetUniformMat4fv(const std::string& name, u32 count, const f32* v);
 private:
 	u32 CompileShader(u32 type, const char* shaderSource) const;
 	void CompileShaderProgram() const;

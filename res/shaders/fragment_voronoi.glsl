@@ -1,5 +1,5 @@
 #version 330 core
-precision highp float;
+precision mediump float;
 
 in vec4 v_col;
 in vec2 v_uv;

@@ -86,32 +86,42 @@ i32 Shader::GetUniformLocation(const std::string& name)
 	return location;
 }
 
-void Shader::SetUniform1f(const std::string& name, f32 v)
+void Shader::SetUniform1f(const std::string& name, const f32 v)
 {
 	GLCall(glUniform1f(GetUniformLocation(name), v));
 }
 
-void Shader::SetUniform2f(const std::string& name, Vec2f v)
+void Shader::SetUniform2f(const std::string& name, const Vec2f v)
 {
 	GLCall(glUniform2f(GetUniformLocation(name), v.x, v.y));
 }
 
-void Shader::SetUniform2fv(const std::string& name, u32 count, Vec2f* v)
+void Shader::SetUniform2fv(const std::string& name, u32 count, const f32* v)
 {
-	GLCall(glUniform2fv(GetUniformLocation(name), count, (const GLfloat*)v));
+	GLCall(glUniform2fv(GetUniformLocation(name), count, v));
 }
 
-void Shader::SetUniform3fv(const std::string& name, u32 count, Vec3f* v)
+void Shader::SetUniform3fv(const std::string& name, u32 count, const f32* v)
 {
-	GLCall(glUniform3fv(GetUniformLocation(name), count, (const GLfloat*)v));
+	GLCall(glUniform3fv(GetUniformLocation(name), count, v));
 }
 
-void Shader::SetUniform2i(const std::string& name, Vec2i v)
+void Shader::SetUniform2i(const std::string& name, const Vec2i v)
 {
 	GLCall(glUniform2i(GetUniformLocation(name), v.x, v.y));
 }
 
-void Shader::SetUniform1i(const std::string& name, i32 v)
+void Shader::SetUniform1i(const std::string& name, const i32 v)
 {
 	GLCall(glUniform1i(GetUniformLocation(name), v));
+}
+
+void Shader::SetUniformMat4x4f(const std::string& name, const f32* v)
+{
+	GLCall(glUniformMatrix4fv(GetUniformLocation(name), 1, GL_FALSE, v));
+}
+
+void Shader::SetUniformMat4fv(const std::string& name, u32 count, const f32* v)
+{
+	GLCall(glUniformMatrix4fv(GetUniformLocation(name), count, GL_FALSE, v));
 }

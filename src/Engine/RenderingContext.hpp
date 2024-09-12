@@ -39,6 +39,7 @@ public:
 	void PollEvents() const;
 
 	double GetTime() const;
+	GLFWwindow* GetWindow() const;
 	Vec2i GetWindowResolution() const;
 	void SetWindowResolution(Vec2i res);
 	void ResetViewport() const;

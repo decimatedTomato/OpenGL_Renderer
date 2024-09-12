@@ -61,7 +61,7 @@ i32 main(void)
 	IndexBuffer ib(square_indices, 6);
 	ib.Bind();
 
-	Shader defaultShader("res/shaders/vertex_standard.glsl", "res/shaders/fragment_standard.glsl");
+	Shader defaultShader("res/shaders/vertex_basic.glsl", "res/shaders/fragment_standard.glsl");
 	defaultShader.Bind();
 
 	/* Loop until the user closes the window */

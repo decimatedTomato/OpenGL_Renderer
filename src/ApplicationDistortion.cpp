@@ -70,7 +70,7 @@ i32 main(void)
 	Texture texture("res/textures/African-savanna-elephant.png");
 	texture.Bind(0);
 
-	Shader distortionShader("res/shaders/vertex_standard.glsl", "res/shaders/fragment_distortion.glsl");
+	Shader distortionShader("res/shaders/vertex_basic.glsl", "res/shaders/fragment_distortion.glsl");
 	distortionShader.Bind();
 	distortionShader.SetUniform1f("u_time", 0);
 	distortionShader.SetUniform2i("u_resolution", context.GetWindowResolution());

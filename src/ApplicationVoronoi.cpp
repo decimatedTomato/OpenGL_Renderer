@@ -64,7 +64,7 @@ i32 main(void)
 	IndexBuffer ib(square_indices, 6);
 
 	srand((u32)time(NULL));
-	Shader voronoiShader("res/shaders/vertex_standard.glsl", "res/shaders/fragment_voronoi.glsl");
+	Shader voronoiShader("res/shaders/vertex_basic.glsl", "res/shaders/fragment_voronoi.glsl");
 	voronoiShader.Bind();
 	voronoiShader.SetUniform1i("u_p_count", 32);
 	voronoiShader.SetUniform2i("u_resolution", context.GetWindowResolution());

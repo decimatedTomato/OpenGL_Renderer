@@ -1,5 +1,5 @@
 #version 330 core
-precision highp float;
+precision mediump float;
 
 in vec4 v_col;
 in vec2 v_uv;
@@ -10,10 +10,10 @@ uniform sampler2D u_texture;
 
 uniform vec2 u_center;
 
-#define SPEED 0.2
+#define SPEED 0.5
 #define CENTER vec2(0.4)
-#define MAX_RADIUS 1.
-#define DISTORTION_RADIUS 0.2
+#define MAX_RADIUS .8
+#define DISTORTION_RADIUS 0.15
 #define INTRO_END 0.1
 #define OUTRO_START 0.5
 #define EASE 1.5

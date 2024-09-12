@@ -61,7 +61,7 @@ i32 main(void)
 	IndexBuffer ib(square_indices, 6);
 	ib.Bind();
 
-	Shader rainbowShader("res/shaders/vertex_standard.glsl", "res/shaders/fragment_rainbow.glsl");
+	Shader rainbowShader("res/shaders/vertex_basic.glsl", "res/shaders/fragment_rainbow.glsl");
 	rainbowShader.Bind();
 
 	/* Loop until the user closes the window */

@@ -22,8 +22,8 @@ using u8 = std::uint8_t;
 using u32 = std::uint32_t;
 using u64 = std::uint64_t;
 
-using f32 = float;
-using f64 = double;
+using f32 = GLfloat;
+using f64 = GLdouble;
 
 using size = std::uint32_t;
 using std::ptrdiff_t;
@@ -35,6 +35,10 @@ struct Vec2f
 struct Vec3f
 {
 	f32 x, y, z;
+};
+struct Vec4f
+{
+	f32 x, y, z, w;
 };
 struct Vec2i
 {
