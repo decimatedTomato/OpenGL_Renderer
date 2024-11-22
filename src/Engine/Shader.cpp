@@ -3,7 +3,7 @@
 #include "Shader.hpp"
 
 Shader::Shader(const std::string& vertexShaderFilepath, const std::string& fragmentShaderFilepath)
-	:rendererID_(0)
+	: rendererID_(0)
 	, vertexShaderFilepath_(vertexShaderFilepath)
 	, fragmentShaderFilepath_(fragmentShaderFilepath)
 {

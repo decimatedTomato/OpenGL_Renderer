@@ -78,6 +78,7 @@
       <PreprocessorDefinitions>GLEW_STATIC;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)Dependencies;$(SolutionDir)Dependencies\glew-2.1.0\include;$(SolutionDir)Dependencies\stb_image;$(SolutionDir)Dependencies\GLFW\include</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -97,6 +98,7 @@
       <PreprocessorDefinitions>GLEW_STATIC;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)Dependencies;$(SolutionDir)Dependencies\glew-2.1.0\include;$(SolutionDir)Dependencies\stb_image;$(SolutionDir)Dependencies\GLFW\include</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -151,9 +153,12 @@
     <ClCompile Include="Dependencies\imgui\imgui_impl_opengl3.cpp" />
     <ClCompile Include="Dependencies\imgui\imgui_tables.cpp" />
     <ClCompile Include="Dependencies\imgui\imgui_widgets.cpp" />
-    <ClCompile Include="src\ApplicationSpin.cpp" />
+    <ClCompile Include="src\ApplicationTests.cpp" />
+    <ClCompile Include="src\Engine\Camera.cpp" />
     <ClCompile Include="src\Engine\Defines.cpp" />
     <ClCompile Include="src\Engine\IndexBuffer.cpp" />
+    <ClCompile Include="src\Engine\Model.cpp" />
+    <ClCompile Include="src\Engine\Model.hpp" />
     <ClCompile Include="src\Engine\Renderer.cpp" />
     <ClCompile Include="src\Engine\RenderingContext.cpp" />
     <ClCompile Include="src\Engine\Shader.cpp" />
@@ -161,6 +166,8 @@
     <ClCompile Include="src\Engine\VertexArray.cpp" />
     <ClCompile Include="src\Engine\VertexBuffer.cpp" />
     <ClCompile Include="src\Engine\VertexBufferLayout.cpp" />
+    <ClCompile Include="src\Tests\TestClearColor.cpp" />
+    <ClCompile Include="src\Tests\TestRenderTeapot.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Dependencies\glm\detail\func_common.inl" />
@@ -608,6 +615,7 @@
     <ClInclude Include="Dependencies\imgui\imstb_textedit.h" />
     <ClInclude Include="Dependencies\imgui\imstb_truetype.h" />
     <ClInclude Include="src\Application.h" />
+    <ClInclude Include="src\Engine\Camera.hpp" />
     <ClInclude Include="src\Engine\Defines.hpp" />
     <ClInclude Include="src\Engine\IndexBuffer.hpp" />
     <ClInclude Include="src\Engine\Renderer.hpp" />
@@ -617,6 +625,9 @@
     <ClInclude Include="src\Engine\VertexArray.hpp" />
     <ClInclude Include="src\Engine\VertexBuffer.hpp" />
     <ClInclude Include="src\Engine\VertexBufferLayout.hpp" />
+    <ClInclude Include="src\Tests\Test.hpp" />
+    <ClInclude Include="src\Tests\TestClearColor.hpp" />
+    <ClInclude Include="src\Tests\TestRenderTeapot.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\textures\African-savanna-elephant.png" />

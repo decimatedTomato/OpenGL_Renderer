@@ -1,11 +1,20 @@
 # Rendering Engine
 My first rendering engine, and first c++ project.
-Will possibly serve as bedrock for physics engine in the future.
 
 ## TODO
-- Add fullscreen/pause/resume
-- Create scenes and UI to switch between them
-- Recreate without the help of visual studio (it is bothering me)
+- Add time/pause/resume
+- Ability to swap between (UI to switch between them)
+- Remove reliance on Visual Studio for compilation
+
+## GOALS
+- Scenes
+- Primitive 3d shapes
+- Importing models/scenes
+- Abstraction of render texture (dissasociation between screen and rendering)
+- Upgraded uniform handling (parsing the shader file procedurally)
+- Abstraction over camera
+- Global illumination
+- Other illuminations
 
 ## Sources
 - Making heavy use of TheCherno's OpenGL series:

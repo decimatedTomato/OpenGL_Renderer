@@ -4,6 +4,7 @@
 
 #include "imgui/imgui.h"
 #include "imgui/imgui_impl_glfw.h"
+#include "imgui/imgui_impl_opengl3.h"
 
 #include "Engine/Renderer.hpp"
 #include "Engine/RenderingContext.hpp"
@@ -37,6 +38,8 @@ i32 main(void)
 
 	ImGui::CreateContext();
 	ImGui_ImplGlfw_InitForOpenGL(context.GetWindow(), true);
+	ImGui_ImplOpenGL3_Init();
+	ImGui::StyleColorsDark();
 
 	const Vertex square_attributes[] = {
 		{
@@ -77,18 +80,26 @@ i32 main(void)
 	IndexBuffer ib(square_indices, 6);
 	ib.Bind();
 
-	Texture texture("res/textures/African-savanna-elephant.png");
-	texture.Bind(0);
+	//Texture texture("res/textures/African-savanna-elephant.png");
+	//texture.Bind(0);
 
-	//float aspect = 16.0f / 9;
-	//const glm::mat4 modelviewprojection = glm::mat4(1.0f);
-	//const glm::mat4 projection = glm::mat4(1.0f);
-	//const glm::mat4 stretched_projection = glm::ortho(1.0f, -1.0f, 1.0f / aspect, -1.0f / aspect, 1.0f, -1.0f);
-	//const glm::mat4 proj = glm::ortho(0.0f, (f32)context.GetWindowResolution().x, 0.0f, (f32)context.GetWindowResolution().y, -1.0f, 1.0f);
+	glm::vec3 plane_translation(0.0f, 0.0f, 0.0f);
+	glm::vec3 plane_rotation(0.0f, 0.0f, 0.0f);
+	glm::vec3 plane_scale(1.0f, 1.0f, 1.0f);
+
 	const glm::mat4 proj = glm::ortho(-1.0f, 1.0f, -1.0f, 1.0f, -1.0f, 1.0f);
-	const glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(-1.0f, 0.0f, 0.0f));
+	//const glm::mat4 proj = glm::perspective(-1.0f, 1.0f, -1.0f, 1.0f, -1.0f, 1.0f);
+	glm::mat4 view;
+	if (plane_rotation == glm::vec3(0.0f, 0.0f, 0.0f))
+	{
+		view = glm::scale(glm::translate(glm::mat4(1.0f), plane_translation), plane_scale);
+	}
+	else
+	{
+		view = glm::scale(glm::rotate(glm::translate(glm::mat4(1.0f), plane_translation), glm::pi<f32>(), glm::normalize(plane_rotation)), plane_scale);
+	}
 	const glm::mat4 model(1.0f);
-	const glm::mat4 mvp = proj * view * model;
+	glm::mat4 mvp = proj * view * model;
 	Shader distortionShader("res/shaders/vertex_standard.glsl", "res/shaders/fragment_standard.glsl");
 	distortionShader.Bind();
 	distortionShader.SetUniformMat4x4f("u_model_view_projection", glm::value_ptr(mvp));
@@ -97,19 +108,44 @@ i32 main(void)
 	while (!context.ShouldWindowClose())
 	{
 		renderer.Clear();
+		ImGui_ImplOpenGL3_NewFrame();
+		ImGui_ImplGlfw_NewFrame();
+		ImGui::NewFrame();
 
 		/* Draw the bound buffer */
-		const glm::mat4 proj = glm::ortho(-1.0f, 1.0f, -1.0f, 1.0f, -1.0f, 1.0f);
-		const glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(glm::sin(context.GetTime()), glm::cos(context.GetTime()), 0.0f));
-		const glm::mat4 model(1.0f);
-		const glm::mat4 mvp = proj * view * model;
+		if (plane_rotation == glm::vec3(0.0f, 0.0f, 0.0f))
+		{
+			view = glm::scale(glm::translate(glm::mat4(1.0f), plane_translation), plane_scale);
+		}
+		else
+		{
+			view = glm::scale(glm::rotate(glm::translate(glm::mat4(1.0f), plane_translation), glm::pi<f32>(), glm::normalize(plane_rotation)), plane_scale);
+		}
+		mvp = proj * view * model;
 		distortionShader.SetUniformMat4x4f("u_model_view_projection", glm::value_ptr(mvp));
 
 		renderer.Draw(va, ib, distortionShader);
 
+		ImGui::Begin("Config");
+		{
+			ImGui::BeginGroup();
+			ImGui::SliderFloat3("Translation", (f32*)&plane_translation, -2.0f, 2.0f);
+			//ImGui::SliderFloat3("Rotation", (f32*)&plane_rotation, -1.0f, 1.0f);
+			ImGui::SliderFloat3("Rotation", (f32*)&plane_rotation, -.01f, .01f);
+			ImGui::SliderFloat3("Scale", (f32*)&plane_scale, -5.0f, 5.0f);
+			ImGui::EndGroup();
+		}
+		ImGui::End();
+
+		ImGui::Render();
+		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
 		context.SwapBuffers();
 		context.PollEvents();
 	}
+	ImGui_ImplOpenGL3_Shutdown();
+	ImGui_ImplGlfw_Shutdown();
+	ImGui::DestroyContext();
 
 	return 0;
 }

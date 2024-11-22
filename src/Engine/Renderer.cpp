@@ -12,3 +12,9 @@ void Renderer::Clear()
 {
 	GLCall(glClear(GL_COLOR_BUFFER_BIT));
 }
+
+void Renderer::ClearColor(Vec4f color)
+{
+	GLCall(glClearColor(color.x, color.y, color.z, color.w));
+	Clear();
+}
